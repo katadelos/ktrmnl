@@ -6,7 +6,7 @@ from types import SimpleNamespace
 
 from PyQt5.QtCore import QObject
 
-from ktrmnl2.network.wifi import WifiLink, WifiManager
+from ktrmnl.network.wifi import WifiLink, WifiManager
 
 
 class WifiScanTests(unittest.TestCase):

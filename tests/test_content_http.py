@@ -15,7 +15,7 @@ import requests
 from PyQt5.QtCore import QCoreApplication, QEventLoop, QTimer
 from urllib3.exceptions import MaxRetryError, NewConnectionError
 
-from ktrmnl2.content.http import (
+from ktrmnl.content.http import (
     DisplayFetchFailure,
     DisplayFetchResult,
     DisplayMetadata,
@@ -211,7 +211,7 @@ class RequestsWorkerTests(unittest.TestCase):
                     with (
                         self.subTest(operation=operation),
                         patch.object(worker._session, "get", side_effect=error),
-                        self.assertLogs("ktrmnl2.content", level="WARNING") as logs,
+                        self.assertLogs("ktrmnl.content", level="WARNING") as logs,
                     ):
                         if operation == "image":
                             with patch.object(

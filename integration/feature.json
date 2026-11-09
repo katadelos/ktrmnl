@@ -1,10 +1,10 @@
 {
   "schema": 1,
-  "id": "ktrmnl2-k2-variant",
+  "id": "ktrmnl",
   "kind": "application",
-  "title": "ktrmnl2",
+  "title": "ktrmnl",
   "description": "TRMNL, local images and LAN image push.",
-  "executable": "/usr/bin/ktrmnl2",
+  "executable": "/usr/bin/ktrmnl",
   "platforms": ["kindle", "kobo"],
   "popover": {"icon": "apps", "order": 48}
 }

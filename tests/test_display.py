@@ -3,7 +3,7 @@ from __future__ import annotations
 import unittest
 from unittest.mock import Mock, patch
 
-from ktrmnl2.device.display import DisplayError, StockDisplayBackend
+from ktrmnl.device.display import DisplayError, StockDisplayBackend
 
 
 class DisplayTests(unittest.TestCase):

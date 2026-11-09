@@ -1,11 +1,11 @@
-# ktrmnl2
+# ktrmnl
 
-Turn a Kindle or Kobo into an e-ink dashboard. ktrmnl2 displays screens from a
+Turn a Kindle or Kobo into an e-ink dashboard. ktrmnl displays screens from a
 TRMNL server, cycles through images stored on the reader, and accepts images
 and notifications from scripts or home automations on your network.
 
 Use it for a desk calendar, a weather display, a photo slideshow, or a status
-screen. It runs alongside the reader's usual interface: exit ktrmnl2 to return
+screen. It runs alongside the reader's usual interface: exit ktrmnl to return
 to your books.
 
 ## What can it display?
@@ -24,8 +24,8 @@ Local images and HTTP push do not need a TRMNL server or API token.
 You need a supported Kindle or Kobo running its stock firmware with the k2 SDK
 installed. Kindle devices must be jailbroken.
 
-1. Install the `ktrmnl2-k2-variant` package using the k2 SDK package manager.
-2. Open **ktrmnl2** from k2's Device page or cog menu. On Kobo, you can also
+1. Install the `ktrmnl` package using the k2 SDK package manager.
+2. Open **ktrmnl** from k2's Device page or cog menu. On Kobo, you can also
    launch it from NickelMenu.
 3. Choose your language and complete the introduction.
 4. For network content, open **Network → Select Wi-Fi network** and connect.
@@ -105,8 +105,8 @@ authentication; use them on a trusted local network.
   warning threshold, or reset the app's settings.
 - **Exit ktrmnl** in the main menu returns to the reader's normal interface.
 
-Settings are saved on the reader in `/mnt/us/ktrmnl2/config.json` on Kindle or
-`/mnt/onboard/ktrmnl2/config.json` on Kobo. Most settings can be changed in the
+Settings are saved on the reader in `/mnt/us/ktrmnl/config.json` on Kindle or
+`/mnt/onboard/ktrmnl/config.json` on Kobo. Most settings can be changed in the
 app; [config.example.json](config.example.json) lists the configuration keys.
 
 ## Development
@@ -116,12 +116,12 @@ backends. With Python 3.11 or later and `uv` installed:
 
 ```sh
 uv sync --python 3.11
-uv run ktrmnl2-sim --first-run
+uv run ktrmnl-sim --first-run
 uv run pre-commit install
 ```
 
 Use `--controls` to open the simulator's display and content controls, or
-`--config /tmp/ktrmnl2-preview.json` for a separate set of preview settings.
+`--config /tmp/ktrmnl-preview.json` for a separate set of preview settings.
 
 Run formatting, lint, and dead-code checks with
 `uv run pre-commit run --all-files`. Run the Python tests with

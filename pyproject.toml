@@ -1,5 +1,5 @@
 [project]
-name = "ktrmnl2"
+name = "ktrmnl"
 version = "0.1.0"
 description = "A Qt Quick TRMNL client for stock Kindle and Kobo firmware"
 requires-python = ">=3.9"
@@ -10,15 +10,15 @@ dependencies = [
 ]
 
 [project.scripts]
-ktrmnl2 = "ktrmnl2.device.main:main"
-ktrmnl2-sim = "ktrmnl2.simulator.main:main"
+ktrmnl = "ktrmnl.device.main:main"
+ktrmnl-sim = "ktrmnl.simulator.main:main"
 
 [build-system]
 requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools.packages.find]
-include = ["ktrmnl2*"]
+include = ["ktrmnl*"]
 namespaces = false
 
 [dependency-groups]
@@ -43,7 +43,7 @@ target-version = "py39"
 select = ["E4", "E7", "E9", "F", "I", "B"]
 
 [tool.vulture]
-paths = ["ktrmnl2", "tests"]
+paths = ["ktrmnl", "tests"]
 min_confidence = 60
 # Qt invokes these through its meta-object system, including calls from QML.
 ignore_decorators = ["@pyqtProperty", "@pyqtSlot"]

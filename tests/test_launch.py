@@ -9,8 +9,8 @@ import unittest
 from pathlib import Path
 from unittest.mock import Mock, patch
 
-from ktrmnl2 import launch
-from ktrmnl2.config.store import configured_qt_backend
+from ktrmnl import launch
+from ktrmnl.config.store import configured_qt_backend
 
 
 class LaunchTests(unittest.TestCase):
@@ -69,7 +69,7 @@ class LaunchTests(unittest.TestCase):
             socket.is_socket.return_value = True
             with (
                 patch.dict(
-                    os.environ, {"KTRMNL2_CONFIG": str(environment_config)}, clear=True
+                    os.environ, {"KTRMNL_CONFIG": str(environment_config)}, clear=True
                 ),
                 patch.object(launch, "stock_x11_capable", return_value=True),
                 patch.object(launch, "X11_SOCKET", socket),
@@ -87,7 +87,7 @@ class LaunchTests(unittest.TestCase):
                     0,
                 )
                 self.assertEqual(os.environ["QT_QPA_PLATFORM"], "ereader")
-                self.assertEqual(os.environ["KTRMNL2_X11_AVAILABLE"], "1")
+                self.assertEqual(os.environ["KTRMNL_X11_AVAILABLE"], "1")
                 self.assertNotIn("DISPLAY", os.environ)
                 arguments = execute.call_args.args[1]
                 self.assertEqual(

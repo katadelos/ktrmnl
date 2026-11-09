@@ -7,9 +7,9 @@ from pathlib import Path
 
 from PyQt5.QtCore import QCoreApplication
 
-from ktrmnl2.config.defaults import SUPPORTED_LANGUAGES
-from ktrmnl2.config.store import KtrmnlConfig
-from ktrmnl2.i18n import CATALOG_ROOT, TranslationManager
+from ktrmnl.config.defaults import SUPPORTED_LANGUAGES
+from ktrmnl.config.store import KtrmnlConfig
+from ktrmnl.i18n import CATALOG_ROOT, TranslationManager
 
 
 class TranslationTests(unittest.TestCase):

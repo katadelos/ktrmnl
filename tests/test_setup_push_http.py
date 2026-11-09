@@ -10,9 +10,9 @@ from unittest.mock import patch
 import requests
 from PyQt5.QtCore import QCoreApplication, QObject, pyqtSignal
 
-from ktrmnl2.config.store import KtrmnlConfig
-from ktrmnl2.content.controller import ContentController
-from ktrmnl2.network.push import ListenerState, PushWebServer
+from ktrmnl.config.store import KtrmnlConfig
+from ktrmnl.content.controller import ContentController
+from ktrmnl.network.push import ListenerState, PushWebServer
 
 PNG_1X1 = base64.b64decode(
     "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII="
@@ -205,7 +205,7 @@ class SetupPushHttpTests(unittest.TestCase):
                 content.setMode("trmnl")
                 self.assertFalse(server.running)
                 with patch(
-                    "ktrmnl2.network.push._ReusableHTTPServer",
+                    "ktrmnl.network.push._ReusableHTTPServer",
                     side_effect=OSError("port busy"),
                 ):
                     content.setMode("http_push")

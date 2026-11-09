@@ -17,22 +17,22 @@ from PyQt5.QtCore import (
     pyqtSlot,
 )
 
-from ktrmnl2.app.controller import KtrmnlController
-from ktrmnl2.config.store import KtrmnlConfig
-from ktrmnl2.content.controller import (
+from ktrmnl.app.controller import KtrmnlController
+from ktrmnl.config.store import KtrmnlConfig
+from ktrmnl.content.controller import (
     SPECIAL_FUNCTION_SLEEP_SECONDS,
     ContentController,
     ContentState,
     RefreshDeadline,
 )
-from ktrmnl2.content.http import (
+from ktrmnl.content.http import (
     DisplayFetchFailure,
     DisplayFetchResult,
     display_headers,
 )
-from ktrmnl2.content.inbox import PushInbox
-from ktrmnl2.device.power import PowerState, SleepAttempt, StockPower
-from ktrmnl2.i18n import TranslationManager
+from ktrmnl.content.inbox import PushInbox
+from ktrmnl.device.power import PowerState, SleepAttempt, StockPower
+from ktrmnl.i18n import TranslationManager
 
 PNG_1X1 = base64.b64decode(
     "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII="
@@ -198,7 +198,7 @@ class PushStateTests(unittest.TestCase):
                 patch.dict(
                     os.environ,
                     {
-                        "KTRMNL2_X11_AVAILABLE": "1" if available else "0",
+                        "KTRMNL_X11_AVAILABLE": "1" if available else "0",
                         "QT_QPA_PLATFORM": "xcb",
                     },
                 ),
@@ -325,7 +325,7 @@ class PushStateTests(unittest.TestCase):
                 False, 135.0, refresh=content.pause_refresh(), paused_at=100.0
             )
             power._transition(PowerState.SUSPENDING)
-        clock = patch("ktrmnl2.device.power.time.monotonic", return_value=100.0)
+        clock = patch("ktrmnl.device.power.time.monotonic", return_value=100.0)
         clock.start()
         self.addCleanup(clock.stop)
         return power, content, controller, wifi, network, window
@@ -384,7 +384,7 @@ class PushStateTests(unittest.TestCase):
         )
         wifi.operation_busy = True
         power._automatic_suspend()
-        with patch("ktrmnl2.device.power.time.monotonic", return_value=106.0):
+        with patch("ktrmnl.device.power.time.monotonic", return_value=106.0):
             power._drain_network()
             self.assertEqual(power.state, PowerState.COOLDOWN)
             self.assertTrue(power._retry.isActive())
@@ -500,7 +500,7 @@ class PushStateTests(unittest.TestCase):
             {"slept_ms": 60000, "sleep_gap_ms": 60000, "reason": "RTC"},
             None,
         )
-        with patch("ktrmnl2.content.controller.time.monotonic", return_value=131.0):
+        with patch("ktrmnl.content.controller.time.monotonic", return_value=131.0):
             content._poll_network_ready()
         self.assertEqual(len(network.requests), 1)
         self.assertTrue(content._timer.isActive())
@@ -551,7 +551,7 @@ class PushStateTests(unittest.TestCase):
         power, content, _controller, _wifi, _network, _window = self._ready_power()
         remaining = power._attempt.refresh.remaining_ms
         power._attempt.manual = True
-        with patch("ktrmnl2.device.power.time.monotonic", return_value=102.0):
+        with patch("ktrmnl.device.power.time.monotonic", return_value=102.0):
             power._complete(
                 power._attempt,
                 {"slept_ms": 2000, "sleep_gap_ms": 0, "reason": "POWER"},

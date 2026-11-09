@@ -1,16 +1,16 @@
 #!/bin/sh
-# Name: ktrmnl2 power test
-# Author: ktrmnl2-k2-variant
-# Run from Scriptlets after exiting ktrmnl2 and k2. Disconnect USB when started.
-# Logs: /mnt/us/ktrmnl2-power-test/<UTC timestamp>/
+# Name: ktrmnl power test
+# Author: ktrmnl
+# Run from Scriptlets after exiting ktrmnl and k2. Disconnect USB when started.
+# Logs: /mnt/us/ktrmnl-power-test/<UTC timestamp>/
 set -eu
 case "${1:-}" in
     --help)
         cat <<'HELP'
-Exit ktrmnl2 and k2, launch this scriptlet, then disconnect USB within 3 minutes.
+Exit ktrmnl and k2, launch this scriptlet, then disconnect USB within 3 minutes.
 Do not touch the reader during the automatic phases. Each lasts 5 minutes.
-Progress: /mnt/us/ktrmnl2-power-test/STATUS.txt
-Latest log directory: /mnt/us/ktrmnl2-power-test/LATEST.txt
+Progress: /mnt/us/ktrmnl-power-test/STATUS.txt
+Latest log directory: /mnt/us/ktrmnl-power-test/LATEST.txt
 Four phases take about 25 minutes. The final phase uses stock powerd sleep.
 If still asleep after 35 minutes, press Power once to wake it and allow cleanup.
 Brightness, Wi-Fi enable state and screensaver policy are restored on exit.
@@ -19,7 +19,7 @@ HELP
         exit 0 ;;
     --worker) ;;
     '')
-        base=/mnt/us/ktrmnl2-power-test
+        base=/mnt/us/ktrmnl-power-test
         mkdir -p "$base"
         run="$base/$(date -u +%Y%m%dT%H%M%SZ)-$$"
         mkdir "$run"
@@ -55,7 +55,7 @@ lock = (RUN.parent / "lock").open("w")
 try:
     fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
 except BlockingIOError:
-    raise SystemExit("Another power test is running; see ktrmnl2-power-test/STATUS.txt.")
+    raise SystemExit("Another power test is running; see ktrmnl-power-test/STATUS.txt.")
 # Kindle user storage is FAT: use ordinary files, not symlinks.
 (RUN.parent / "LATEST.txt").write_text(str(RUN) + "\n")
 
@@ -188,7 +188,7 @@ def active_sdk_apps():
     for proc in Path("/proc").glob("[0-9]*"):
         try:
             argv = (proc / "cmdline").read_bytes().split(b"\0")
-            if any(a in (b"ktrmnl2.device", b"k2.adapters.session", b"k2.app") for a in argv):
+            if any(a in (b"ktrmnl.device", b"k2.adapters.session", b"k2.app") for a in argv):
                 found.append(int(proc.name))
         except OSError:
             pass
@@ -212,7 +212,7 @@ try:
 
     apps = active_sdk_apps()
     if apps:
-        raise RuntimeError(f"Exit ktrmnl2 and k2 first (running PIDs: {apps}).")
+        raise RuntimeError(f"Exit ktrmnl and k2 first (running PIDs: {apps}).")
     if get(POWERD, "state") != "active" or int(get(POWERD, "preventScreenSaver")):
         raise RuntimeError("Start from the active stock UI with no screensaver inhibitor.")
     device = Device()

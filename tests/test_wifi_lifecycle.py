@@ -10,8 +10,8 @@ from unittest.mock import patch
 
 from PyQt5.QtCore import QCoreApplication, QEventLoop, QTimer
 
-from ktrmnl2.config.store import KtrmnlConfig
-from ktrmnl2.network.wifi import WifiLink, WifiManager, WifiOperation, WifiPolling
+from ktrmnl.config.store import KtrmnlConfig
+from ktrmnl.network.wifi import WifiLink, WifiManager, WifiOperation, WifiPolling
 
 
 class _Security(IntEnum):

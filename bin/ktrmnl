@@ -1,0 +1,42 @@
+#!/bin/sh
+# Device launcher. The package payload lives on userstore; links live in RAM.
+set -eu
+if [ -d /mnt/onboard/.eink-sdk ]; then
+    family=kobo
+    userstore=/mnt/onboard
+elif [ -d /mnt/us/.eink-sdk ]; then
+    family=kindle
+    userstore=/mnt/us
+else
+    echo 'Install the k2 SDK before launching ktrmnl.' >&2
+    exit 1
+fi
+store=$userstore/.eink-sdk
+export KTRMNL_USERSTORE="$userstore"
+export KTRMNL_DATA_DIR="${KTRMNL_DATA_DIR:-$userstore/ktrmnl}"
+control=$store/control
+runtime=/var/run/eink-sdk
+[ -f "$runtime/.active" ] || sh "$control/activate"
+. "$control/env"
+export EREADER_HAL_LIBRARY="$runtime/usr/lib/libereader-hal.so"
+export PYTHONHOME="$runtime/usr"
+export PYTHONPATH="$store/usr/share/ktrmnl:$store/usr/share/k2"
+export QT_PLUGIN_PATH="$runtime/usr/lib/qt/plugins"
+export QT_QPA_PLATFORM_PLUGIN_PATH="$QT_PLUGIN_PATH/platforms"
+export QML2_IMPORT_PATH="$store/usr/qml"
+export QT_QPA_FONTDIR="$runtime/usr/share/fonts/dejavu"
+# Use the SDK font configuration when the installed Qt build includes it.
+if [ -f "$runtime/etc/fonts/fonts.conf" ]; then
+    export FONTCONFIG_PATH="$runtime/etc/fonts"
+    export FONTCONFIG_FILE="$FONTCONFIG_PATH/fonts.conf"
+else
+    unset FONTCONFIG_PATH FONTCONFIG_FILE
+fi
+export QT_QUICK_BACKEND=software
+# IPKs have reproducible timestamps; do not reuse stale compiled QML on upgrades.
+export QML_DISABLE_DISK_CACHE=1
+export QT_QUICK_CONTROLS_STYLE=Default
+export XDG_CACHE_HOME="$store/cache"
+unset LD_LIBRARY_PATH
+
+exec "$runtime/usr/bin/python3" -m ktrmnl.launch "$family" "$@"

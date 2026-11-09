@@ -10,7 +10,7 @@ Window {
     width: runtimeDisplayWidth
     height: runtimeDisplayHeight
     color: ktrmnl.darkMode ? "#000000" : "#ffffff"
-    title: "L:A_N:application_ID:org.ktrmnl2_PC:N"
+    title: "L:A_N:application_ID:org.ktrmnl_PC:N"
     flags: Qt.FramelessWindowHint
 
     property alias menuOpen: appView.menuOpen

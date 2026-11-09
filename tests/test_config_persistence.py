@@ -4,7 +4,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from ktrmnl2.config.store import KtrmnlConfig
+from ktrmnl.config.store import KtrmnlConfig
 
 
 class ConfigPersistenceTests(unittest.TestCase):

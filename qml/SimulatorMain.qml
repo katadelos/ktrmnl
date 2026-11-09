@@ -11,7 +11,7 @@ Window {
     width: simulatorDisplay.logicalWidth
     height: simulatorDisplay.logicalHeight
     color: simulatorDisplay.nightMode ? "#000000" : "#ffffff"
-    title: "ktrmnl2 — " + width + " × " + height + " simulator"
+    title: "ktrmnl — " + width + " × " + height + " simulator"
     flags: Qt.Window
 
     property alias menuOpen: appView.menuOpen
@@ -106,11 +106,11 @@ Window {
             root.captureState = SimulatorMain.Capturing
             if (!root.contentItem.grabToImage(function(result) {
                 if (!result.saveToFile(runtimeScreenshotPath))
-                    console.warn("ktrmnl2: could not save " + runtimeScreenshotPath)
+                    console.warn("ktrmnl: could not save " + runtimeScreenshotPath)
                 root.captureState = SimulatorMain.Finished
                 screenshotController.finish()
             })) {
-                console.warn("ktrmnl2: could not capture the simulator window")
+                console.warn("ktrmnl: could not capture the simulator window")
                 root.captureState = SimulatorMain.Finished
                 screenshotController.finish()
             }
