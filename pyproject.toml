@@ -1,0 +1,55 @@
+[project]
+name = "ktrmnl2"
+version = "0.1.0"
+description = "A Qt Quick TRMNL client for stock Kindle and Kobo firmware"
+requires-python = ">=3.9"
+dependencies = [
+    "eboard @ git+ssh://git@github.com/katadelos/eboard.git@ec3b887f6ee3255da78bd5fa3dc85797bcb911ec",
+    "PyQt5==5.15.11",
+    "requests>=2.32.4,<3",
+]
+
+[project.scripts]
+ktrmnl2 = "ktrmnl2.device.main:main"
+ktrmnl2-sim = "ktrmnl2.simulator.main:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["ktrmnl2*"]
+namespaces = false
+
+[dependency-groups]
+dev = [
+    "black>=26.10.1",
+    "pre-commit>=4.3",
+    "pre-commit-hooks>=6",
+    "ruff>=0.14",
+    "vulture>=2.14",
+]
+
+[tool.uv.dependency-groups]
+dev = { requires-python = ">=3.11" }
+
+[tool.black]
+target-version = ["py39"]
+
+[tool.ruff]
+target-version = "py39"
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "I", "B"]
+
+[tool.vulture]
+paths = ["ktrmnl2", "tests"]
+min_confidence = 60
+# Qt invokes these through its meta-object system, including calls from QML.
+ignore_decorators = ["@pyqtProperty", "@pyqtSlot"]
+# Framework callbacks and references retained for the Qt event-loop lifetime.
+ignore_names = [
+    "eventFilter", "do_GET", "do_POST", "log_message",
+    "allow_reuse_address", "daemon_threads", "protocol_version",
+    "_ktrmnl_watcher", "_ktrmnl_headless",
+]

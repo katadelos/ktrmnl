@@ -1,0 +1,5 @@
+{
+  "name": "ktrmnl2",
+  "argv": ["/usr/bin/ktrmnl2"],
+  "instructions": "Open ktrmnl2 from Device or the cog menu to display TRMNL content, local images or LAN image pushes. Kobo also provides a NickelMenu entry. Configure Wi-Fi and content using touch or the navigation buttons."
+}

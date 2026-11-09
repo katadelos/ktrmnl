@@ -1,0 +1,3 @@
+# Managed by the ktrmnl2-k2-variant package.
+menu_item :main :ktrmnl2 :cmd_spawn :quiet :exec /bin/sh /mnt/onboard/.eink-sdk/usr/bin/ktrmnl2 > /tmp/ktrmnl2.log 2>&1
+menu_item :reader :ktrmnl2 :cmd_spawn :quiet :exec /bin/sh /mnt/onboard/.eink-sdk/usr/bin/ktrmnl2 > /tmp/ktrmnl2.log 2>&1

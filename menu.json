@@ -1,0 +1,51 @@
+{
+  "pages": {
+    "start": [
+      {"id": "mode-trmnl", "labelKey": "mode.trmnl", "label": "TRMNL", "detailKey": "onboarding.mode_trmnl", "detail": ""},
+      {"id": "mode-interrupt", "labelKey": "mode.interrupt", "label": "Interrupt", "detailKey": "onboarding.mode_interrupt", "detail": ""},
+      {"id": "mode-local", "labelKey": "mode.local_images", "label": "Local images", "detailKey": "onboarding.mode_local", "detail": ""},
+      {"id": "mode-push", "labelKey": "mode.http_push", "label": "HTTP push", "detailKey": "onboarding.mode_push", "detail": ""},
+      {"id": "exit", "labelKey": "menu.exit", "label": "Exit ktrmnl", "detail": ""}
+    ],
+    "root": [
+      {"id": "content-settings", "labelKey": "page.content", "label": "Content", "detail": ""},
+      {"id": "display-settings", "labelKey": "page.display", "label": "Display", "detail": ""},
+      {"id": "wifi-settings", "labelKey": "page.network", "label": "Network", "detail": ""},
+      {"id": "system-settings", "labelKey": "page.system", "label": "System", "detail": ""},
+      {"id": "exit", "labelKey": "menu.exit", "label": "Exit ktrmnl", "detail": ""}
+    ],
+    "content": [
+      {"id": "setting-content-source", "labelKey": "setting.content_source", "label": "Content source", "detail": ""},
+      {"id": "setting-base-url", "labelKey": "setting.server_url", "label": "Server URL", "detail": ""},
+      {"id": "setting-api-key", "labelKey": "setting.api_token", "label": "API token", "detail": ""},
+      {"id": "setting-local-directory", "labelKey": "setting.local_directory", "label": "Local image directory", "detail": ""},
+      {"id": "setting-local-refresh", "labelKey": "setting.local_refresh", "label": "Local image refresh interval", "detail": ""},
+      {"id": "setting-local-shuffle", "labelKey": "setting.local_shuffle", "label": "Shuffle local images", "detail": ""}
+    ],
+    "display": [
+      {"id": "setting-frontlight", "labelKey": "setting.frontlight", "label": "Frontlight", "detail": ""},
+      {"id": "setting-frontlight-brightness", "labelKey": "setting.frontlight_brightness", "label": "Brightness", "detail": ""},
+      {"id": "setting-sleep", "labelKey": "setting.sleep_between", "label": "Sleep between refreshes", "detail": ""},
+      {"id": "setting-dark-mode", "labelKey": "setting.dark_mode", "label": "Dark mode", "detail": ""},
+      {"id": "setting-rotation", "labelKey": "setting.rotation", "label": "Rotation", "detail": ""},
+      {"id": "setting-qt-backend", "labelKey": "setting.qt_backend", "label": "Qt backend", "detail": ""}
+    ],
+    "wifi-settings": [
+      {"id": "status", "labelKey": "status.title", "label": "Status", "detail": ""},
+      {"id": "wifi-setup", "labelKey": "menu.wifi.select_network", "label": "Select Wi-Fi network", "detail": ""},
+      {"id": "setting-retry-interval", "labelKey": "setting.retry_interval", "label": "Retry interval", "detail": ""}
+    ],
+    "system": [
+      {"id": "setting-device-name", "labelKey": "setting.device_name", "label": "Dashboard name", "detail": ""},
+      {"id": "language", "labelKey": "language.title", "label": "Language", "detail": ""},
+      {"id": "show-trmnl-id", "labelKey": "menu.show_trmnl_id", "label": "Show TRMNL ID", "detail": ""},
+      {"id": "setting-battery-threshold", "labelKey": "setting.battery_threshold", "label": "Low battery warning", "detail": ""},
+      {"id": "clear-config", "labelKey": "config.reset", "label": "Reset app settings", "detail": ""}
+    ],
+    "status": [],
+    "wifi": [],
+    "wifi-password": [],
+    "wifi-connect": [],
+    "language": []
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "language": "en",
+  "api_key": "",
+  "friendly_id": "",
+  "device_name": "ktrmnl",
+  "base_url": "",
+  "content_source": "trmnl",
+  "wifi_essid": "",
+  "first_time_setup_complete": false,
+  "local_image_refresh_rate": 60,
+  "local_image_shuffle": true,
+  "retry_interval": 60,
+  "rotation": 0,
+  "dark_mode": false,
+  "frontlight_enabled": false,
+  "frontlight_brightness": 50,
+  "qt_backend": "auto",
+  "sleep_between_refreshes": true,
+  "battery_low_threshold": 15,
+  "ui_profiles": {
+    "800x600": {
+      "text_scale": 1.8,
+      "menu_row_height_scale": 1.4,
+      "keyboard_height_ratio": 0.43
+    },
+    "1024x758": {
+      "text_scale": 1.98,
+      "menu_row_height_scale": 1.54,
+      "keyboard_height_ratio": 0.43
+    },
+    "1448x1072": {
+      "text_scale": 2.8,
+      "menu_row_height_scale": 2.18,
+      "keyboard_height_ratio": 0.43
+    }
+  }
+}

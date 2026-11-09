@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 140" role="img" aria-label="Empty battery">
+  <g fill="none" stroke="#ffffff" stroke-width="9" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="18" y="29" width="134" height="82" rx="10"/>
+    <path d="M153 52h12v36h-12"/>
+  </g>
+</svg>
