@@ -1,12 +1,25 @@
 # ktrmnl
+A TRMNL client for e-reader devices.
+<p>
+  <img src="assets/screenshots/welcome.png" alt="ktrmnl Welcome and language selection" width="49%">
+  <img src="assets/screenshots/mode-selection.png" alt="ktrmnl Mode selection" width="49%">
+</p>
+
+<p>
+  <img src="assets/screenshots/menu.png" alt="ktrmnl Main menu" width="49%">
+  <img src="assets/screenshots/display-settings.png" alt="ktrmnl Display settings" width="49%">
+</p>
+
+<p>
+  <img src="assets/screenshots/wifi-setup.png" alt="ktrmnl Wi-Fi setup" width="49%">
+  <img src="assets/screenshots/keyboard.png" alt="ktrmnl On-screen keyboard" width="49%">
+</p>
 
 Turn a Kindle or Kobo into an e-ink dashboard. ktrmnl displays screens from a
 TRMNL server, cycles through images stored on the reader, and accepts images
 and notifications from scripts or home automations on your network.
 
-Use it for a desk calendar, a weather display, a photo slideshow, or a status
-screen. It runs alongside the reader's usual interface: exit ktrmnl to return
-to your books.
+Use it for a status screen, desk calendar, a weather display, or a photo slideshow.
 
 ## What can it display?
 
@@ -21,10 +34,11 @@ Local images and HTTP push do not need a TRMNL server or API token.
 
 ## Getting started
 
-You need a supported Kindle or Kobo running its stock firmware with the k2 SDK
-installed. Kindle devices must be jailbroken.
+You need a supported Kindle or Kobo running its stock firmware with the e-reader
+SDK and opkg installed. Kindle devices must be jailbroken.
 
-1. Install the `ktrmnl` package using the k2 SDK package manager.
+1. Install the `ktrmnl` package. The easiest way is through k2; you can also
+   install it directly with `opkg install ktrmnl`.
 2. Open **ktrmnl** from k2's Device page or cog menu. On Kobo, you can also
    launch it from NickelMenu.
 3. Choose your language and complete the introduction.
