@@ -35,17 +35,18 @@ class StockDisplayBackend:
         self._state = DisplayState.DETACHED
 
     def _load_platform(self):
-        if QGuiApplication.platformName() not in {"kobo", "ereader"}:
+        if QGuiApplication.platformName() != "ereader":
             return
         paths = (
-            Path(p) / "platforms/libkobo.so" for p in QCoreApplication.libraryPaths()
+            Path(p) / "platforms/libqereader.so"
+            for p in QCoreApplication.libraryPaths()
         )
         path = next(p for p in paths if p.is_file())
         self._platform = ctypes.CDLL(str(path))
         for name, arguments, result in (
-            ("kobo_set_interactive_mode", [ctypes.c_bool], None),
-            ("kobo_request_full_refresh", [], None),
-            ("kobo_wait_for_refresh", [], ctypes.c_bool),
+            ("ereader_set_interactive_mode", [ctypes.c_bool], None),
+            ("ereader_request_full_refresh", [], None),
+            ("ereader_wait_for_refresh", [], ctypes.c_bool),
         ):
             function = getattr(self._platform, name)
             function.argtypes, function.restype = arguments, result
@@ -70,7 +71,7 @@ class StockDisplayBackend:
     def set_interactive_mode(self, active: bool) -> None:
         self._mode = RefreshMode.INTERACTIVE if active else RefreshMode.NORMAL
         if self._platform is not None:
-            self._platform.kobo_set_interactive_mode(
+            self._platform.ereader_set_interactive_mode(
                 self._mode is RefreshMode.INTERACTIVE
             )
 
@@ -81,7 +82,7 @@ class StockDisplayBackend:
             self._refresh.request_cleanup(full=True)
             self._window.update()
         elif self._platform is not None:
-            self._platform.kobo_request_full_refresh()
+            self._platform.ereader_request_full_refresh()
             self._window.update()
 
     def transition_refresh(self, inverted: Optional[bool] = None) -> None:
@@ -95,7 +96,9 @@ class StockDisplayBackend:
         if self._refresh is not None:
             # The stock compositor exposes drawing submission, not a panel fence.
             self._refresh.flush_pending()
-        elif self._platform is not None and not self._platform.kobo_wait_for_refresh():
+        elif (
+            self._platform is not None and not self._platform.ereader_wait_for_refresh()
+        ):
             raise DisplayError("The display has not finished refreshing")
 
     def close(self) -> None:

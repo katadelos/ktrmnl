@@ -112,7 +112,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     input_backend = InputBridge(
         device,
         application,
-        exclusive_buttons=application.platformName() in {"ereader", "kobo"},
+        exclusive_buttons=application.platformName() == "ereader",
     )
     push_server = PushWebServer(
         config,

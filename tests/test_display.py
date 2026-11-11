@@ -41,12 +41,12 @@ class DisplayTests(unittest.TestCase):
         platform = Mock()
         self.display._platform = platform
         self.display.full_refresh()
-        platform.kobo_request_full_refresh.assert_called_once()
+        platform.ereader_request_full_refresh.assert_called_once()
         self.window.update.assert_called_once()
-        platform.kobo_wait_for_refresh.return_value = False
+        platform.ereader_wait_for_refresh.return_value = False
         with self.assertRaises(DisplayError):
             self.display.wait_for_refresh()
-        platform.kobo_wait_for_refresh.return_value = True
+        platform.ereader_wait_for_refresh.return_value = True
         self.display.wait_for_refresh()
 
     def test_interactive_mode_is_applied_when_the_platform_attaches(self):
@@ -58,7 +58,7 @@ class DisplayTests(unittest.TestCase):
             side_effect=lambda: setattr(self.display, "_platform", platform),
         ):
             self.display.attach(self.window, None)
-        platform.kobo_set_interactive_mode.assert_called_once_with(True)
+        platform.ereader_set_interactive_mode.assert_called_once_with(True)
 
 
 if __name__ == "__main__":
