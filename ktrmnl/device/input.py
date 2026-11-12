@@ -28,9 +28,13 @@ class InputBridge(QObject):
         self._application = QCoreApplication.instance()
         self._application.installEventFilter(self)
         self._timer = QTimer(self)
+        self._timer.setTimerType(Qt.PreciseTimer)
         self._timer.setInterval(40)
         self._timer.timeout.connect(self._read_events)
         self._timer.start()
+
+    def set_interactive(self, interactive: bool) -> None:
+        self._timer.setInterval(10 if interactive else 40)
 
     def set_active(self, active: bool) -> None:
         if self._state is InputState.CLOSED:

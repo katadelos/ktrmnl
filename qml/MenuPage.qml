@@ -16,6 +16,21 @@ Rectangle {
     signal selectionRequested(int index)
     signal backRequested()
 
+    // Updating rows in place preserves their delegates across menu changes.
+    // Replacing a QVariantList model rebuilds the entire scene on each entry.
+    ListModel { id: menuRows; dynamicRoles: true }
+    function syncRows() {
+        for (var index = 0; index < items.length; index++) {
+            var row = {entry: items[index]}
+            if (index < menuRows.count) menuRows.set(index, row)
+            else menuRows.append(row)
+        }
+        if (menuRows.count > items.length)
+            menuRows.remove(items.length, menuRows.count - items.length)
+    }
+    onItemsChanged: syncRows()
+    Component.onCompleted: syncRows()
+
     color: theme.paper
 
     PageHeader {
@@ -48,7 +63,7 @@ Rectangle {
         highlightFollowsCurrentItem: false
         highlightMoveDuration: 0
         highlightResizeDuration: 0
-        model: root.items
+        model: menuRows
         currentIndex: root.theme.navigationFocus ? root.selectedIndex : -1
         onCurrentIndexChanged: {
             if (currentIndex >= 0)
@@ -59,8 +74,8 @@ Rectangle {
             id: menuRow
             width: list.width
             property int rowIndex: index
-            property var itemData: modelData
-            property string itemKind: String(modelData.kind || "action")
+            property var itemData: model.entry
+            property string itemKind: String(itemData.kind || "action")
             property bool selectable: itemKind !== "info"
             property bool selected: selectable && (rowPress.highlighted
                 || (root.theme.navigationFocus && index === root.selectedIndex))
@@ -92,7 +107,7 @@ Rectangle {
 
                 Text {
                     width: parent.width
-                    text: modelData.label || ""
+                    text: menuRow.itemData.label || ""
                     color: menuRow.selected ? root.theme.selectedInk : root.theme.ink
                     font.family: root.theme.displayFont
                     font.pixelSize: root.theme.bodySize
@@ -102,8 +117,8 @@ Rectangle {
                 Text {
                     width: parent.width
                     visible: menuRow.itemKind !== "toggle"
-                             && (modelData.detail || "").length > 0
-                    text: modelData.detail || ""
+                             && (menuRow.itemData.detail || "").length > 0
+                    text: menuRow.itemData.detail || ""
                     color: menuRow.selected ? root.theme.selectedInk : root.theme.ink
                     font.family: root.theme.bodyFont
                     font.pixelSize: root.theme.detailSize
@@ -141,7 +156,7 @@ Rectangle {
                     visible: menuRow.itemKind === "toggle"
                     anchors.centerIn: parent
                     theme: root.theme
-                    checked: Boolean(modelData.checked)
+                    checked: Boolean(menuRow.itemData.checked)
                     inverted: menuRow.selected
                 }
             }
@@ -161,7 +176,7 @@ Rectangle {
                        ? parent.width - root.theme.compactMargin * 2
                        : Math.min(Math.round(240 * root.theme.scale), parent.width * 0.30)
                 visible: menuRow.itemKind === "choice"
-                text: modelData.label || ""
+                text: menuRow.itemData.label || ""
                 color: menuRow.selected ? root.theme.selectedInk : root.theme.ink
                 font.family: root.theme.displayFont
                 font.pixelSize: root.theme.bodySize
@@ -186,11 +201,12 @@ Rectangle {
                 z: 2
 
                 Repeater {
+                    id: choiceRepeater
                     model: menuRow.itemData.choices || []
 
                     delegate: Rectangle {
                         id: choiceOption
-                        width: choiceOptions.width / Math.max(1, menuRow.itemData.choices.length)
+                        width: choiceOptions.width / Math.max(1, choiceRepeater.count)
                         height: choiceOptions.height
                         readonly property bool inverted: menuRow.selected || choicePress.highlighted
                         color: inverted ? root.theme.selectedPaper : root.theme.paper

@@ -5,6 +5,7 @@ Item {
     property var theme
     property string title: ""
     property bool backVisible: false
+    readonly property bool showBack: backVisible && theme.touchAvailable
     readonly property int backSlotWidth: Math.round(28 * theme.scale)
     readonly property int backTitleGap: Math.round(8 * theme.scale)
     signal backRequested()
@@ -13,7 +14,7 @@ Item {
 
     Text {
         anchors.left: parent.left
-        anchors.leftMargin: root.backVisible ? root.backSlotWidth + root.backTitleGap : 0
+        anchors.leftMargin: root.showBack ? root.backSlotWidth + root.backTitleGap : 0
         anchors.right: parent.right
         anchors.top: parent.top
         anchors.bottom: parent.bottom
@@ -30,7 +31,7 @@ Item {
     Rectangle {
         id: backButton
         objectName: "pageBackButton"
-        visible: root.backVisible
+        visible: root.showBack
         anchors.left: parent.left
         anchors.leftMargin: -root.theme.outerMargin
         anchors.top: parent.top

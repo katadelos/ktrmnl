@@ -44,6 +44,7 @@ class SimulatorDevice:
             "serial": "SIM000000001",
             "compatible": "amazon,kt6",
             "mac_address": self.mac_address(),
+            "touch_available": True,
             "frontlight_available": True,
         }
 

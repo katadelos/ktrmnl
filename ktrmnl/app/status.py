@@ -132,6 +132,10 @@ class DeviceStatus(QObject):
         return str(self._device.get("model") or "Unknown")
 
     @property
+    def touch_available(self) -> bool:
+        return bool(self._device.get("touch_available"))
+
+    @property
     def battery_low(self) -> bool:
         if not self._battery.get("available"):
             return False

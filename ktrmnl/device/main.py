@@ -152,6 +152,12 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         runtime.close()
         return 1
     window = runtime.engine.rootObjects()[0]
+
+    def sync_input_polling():
+        input_backend.set_interactive(bool(window.property("menuOpen")))
+
+    window.menuOpenChanged.connect(sync_input_polling)
+    sync_input_polling()
     power = StockPower(
         config, device, wifi, content, controller, display, window, application
     )

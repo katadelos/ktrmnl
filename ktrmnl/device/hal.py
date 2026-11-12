@@ -45,6 +45,7 @@ class EreaderClient:
             "serial": identity.serial,
             "compatible": self._info.codenames,
             "mac_address": self._identity.wifi_mac,
+            "touch_available": self._device.get_capability(Capability.TOUCH).available,
             "frontlight_available": self._device.get_capability(
                 Capability.FRONTLIGHT
             ).available

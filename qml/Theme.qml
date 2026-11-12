@@ -17,6 +17,7 @@ QtObject {
     property real rowHeightScale: 1.0
     property real keyboardHeightRatio: 0.43
     property string language: "en"
+    property bool touchAvailable: true
     enum InputMode { Touch, Navigation }
     property int inputMode: Theme.Touch
     readonly property bool navigationFocus: inputMode === Theme.Navigation

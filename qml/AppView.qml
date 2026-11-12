@@ -87,6 +87,7 @@ FocusScope {
         rowHeightScale: root.rowHeightScale
         keyboardHeightRatio: root.keyboardHeightRatio
         language: root.translator.language
+        touchAvailable: root.controller.touchAvailable
         paper: root.paperColor
         ink: root.inkColor
     }
@@ -361,7 +362,7 @@ FocusScope {
     // Raw reader buttons are described in physical axes. Qt keyboard events
     // already describe the logical viewport and therefore bypass this mapping.
     function orientedAction(action) {
-        var rotation = ((displayRotation % 360) + 360) % 360
+        var rotation = ((-displayRotation % 360) + 360) % 360
         if (action !== "up" && action !== "down" && action !== "left" && action !== "right") return action
         if (rotation === 90) {
             if (action === "up") return "right"

@@ -181,6 +181,10 @@ class KtrmnlController(QObject):
         return self._device_status.model
 
     @pyqtProperty(bool, notify=deviceChanged)
+    def touchAvailable(self) -> bool:
+        return self._device_status.touch_available
+
+    @pyqtProperty(bool, notify=deviceChanged)
     def batteryLow(self) -> bool:
         return self._device_status.battery_low
 
