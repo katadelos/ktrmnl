@@ -385,21 +385,27 @@ class RequestsWorker(QObject):
 def display_headers(config, device, wifi) -> Dict[str, str]:
     try:
         battery = device.battery()
-        battery_percent = max(0, min(100, int(battery.get("percent", 0))))
+        battery_percent = (
+            max(0, min(100, int(battery["percent"])))
+            if battery.get("available")
+            else None
+        )
     except Exception:
-        battery_percent = 0
+        battery_percent = None
     try:
         identifier = str(device.mac_address() or "00:00:00:00:00:00")
     except Exception:
         identifier = "00:00:00:00:00:00"
     width, height = logical_display_size(device, config.rotation)
     rssi = int(getattr(wifi, "signalStrength", 0) or 0)
-    return {
+    headers = {
         "access-token": config.api_key,
-        "battery-percent": str(battery_percent),
         "png-width": str(width),
         "png-height": str(height),
         "rssi": str(rssi),
         "ID": identifier,
         "User-Agent": "ktrmnl/" + __version__,
     }
+    if battery_percent is not None:
+        headers["battery-percent"] = str(battery_percent)
+    return headers

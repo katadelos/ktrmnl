@@ -627,6 +627,18 @@ class PushStateTests(unittest.TestCase):
                 (headers["png-width"], headers["png-height"]), ("600", "800")
             )
 
+    def test_request_omits_unavailable_battery(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            config = KtrmnlConfig(Path(temporary) / "config.json")
+            device = _Device()
+            device.battery_available = False
+            self.assertNotIn("battery-percent", display_headers(config, device, None))
+            device.battery_available = True
+            device.battery_percent = 0
+            self.assertEqual(
+                display_headers(config, device, None)["battery-percent"], "0"
+            )
+
     def test_completion_from_old_mode_cannot_publish(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
