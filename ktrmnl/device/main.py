@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import faulthandler
 import logging
 import os
 import signal
@@ -52,6 +53,7 @@ def parse_args(argv: Sequence[str]) -> argparse.Namespace:
 def main(argv: Optional[Sequence[str]] = None) -> int:
     args = parse_args(sys.argv[1:] if argv is None else argv)
     configure_logging(runtime="device")
+    faulthandler.enable()
     session_directory = os.environ.get("K2_SESSION_DIR")
     if not session_directory:
         LOGGER.error("Launch ktrmnl through its installed launcher")
@@ -142,8 +144,15 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
             context_properties={"i18n": translator},
         ),
     )
+
+    def stop(signum, _frame):
+        LOGGER.info("exit requested by signal %s", signal.Signals(signum).name)
+        application.quit()
+
     for signum in (signal.SIGINT, signal.SIGTERM):
-        signal.signal(signum, lambda _signum, _frame: application.quit())
+        signal.signal(signum, stop)
+    application.lastWindowClosed.connect(lambda: LOGGER.info("last window closed"))
+    controller.exitRequested.connect(lambda: LOGGER.info("exit requested from menu"))
     signal_timer = QTimer(application)
     signal_timer.setInterval(100)
     signal_timer.timeout.connect(lambda: None)
@@ -167,4 +176,6 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     if not session.sync():
         session.close()
         return 1
-    return int(application.exec_())
+    result = int(application.exec_())
+    LOGGER.info("event loop exited status=%s", result)
+    return result
