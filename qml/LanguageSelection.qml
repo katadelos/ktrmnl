@@ -85,7 +85,7 @@ Rectangle {
 
                             Text {
                                 anchors.left: parent.left
-                                anchors.right: currentLanguageMark.left
+                                anchors.right: currentLanguageMark.visible ? currentLanguageMark.left : parent.right
                                 anchors.verticalCenter: parent.verticalCenter
                                 anchors.leftMargin: root.theme.compactMargin
                                 anchors.rightMargin: Math.round(6 * root.theme.scale)
@@ -109,7 +109,7 @@ Rectangle {
                                 width: Math.round(18 * root.theme.scale)
                                 checked: true
                                 inverted: languageCell.selected
-                                visible: languageCell.currentLanguage
+                                visible: languageCell.currentLanguage && (!root.onboarding || !root.theme.touchAvailable)
                             }
 
                             Rectangle {
