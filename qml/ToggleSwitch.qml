@@ -9,9 +9,10 @@ Rectangle {
     width: Math.round(48 * theme.scale)
     height: Math.round(26 * theme.scale)
     radius: Math.round(height / 2)
-    color: checked ? (inverted ? theme.selectedInk : theme.ink)
-                   : (inverted ? theme.selectedWash : theme.wash)
-    border.color: inverted ? theme.selectedOutline : theme.outline
+    readonly property color foreground: inverted ? theme.selectedInk : theme.ink
+    readonly property color background: inverted ? theme.selectedPaper : theme.paper
+    color: checked ? foreground : background
+    border.color: foreground
     border.width: theme.controlBorderWidth
 
     Rectangle {
@@ -22,7 +23,6 @@ Rectangle {
         x: root.checked
            ? parent.width - width - Math.round(3 * root.theme.scale)
            : Math.round(3 * root.theme.scale)
-        color: root.checked ? (root.inverted ? root.theme.selectedPaper : root.theme.paper)
-                            : (root.inverted ? root.theme.selectedSecondary : root.theme.secondary)
+        color: root.checked ? root.background : root.foreground
     }
 }

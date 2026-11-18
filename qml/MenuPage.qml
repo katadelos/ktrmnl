@@ -55,7 +55,6 @@ Rectangle {
         anchors.bottom: pageHint.visible ? pageHint.top : parent.bottom
         anchors.leftMargin: root.theme.outerMargin
         anchors.rightMargin: root.theme.outerMargin
-        anchors.topMargin: root.theme.compactMargin
         anchors.bottomMargin: root.theme.compactMargin
         clip: true
         interactive: true

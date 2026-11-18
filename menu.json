@@ -24,11 +24,11 @@
       {"id": "setting-local-shuffle", "labelKey": "setting.local_shuffle", "label": "Shuffle local images", "detail": ""}
     ],
     "display": [
+      {"id": "setting-rotation", "labelKey": "setting.rotation", "label": "Rotation", "detail": ""},
       {"id": "setting-frontlight", "labelKey": "setting.frontlight", "label": "Frontlight", "detail": ""},
       {"id": "setting-frontlight-brightness", "labelKey": "setting.frontlight_brightness", "label": "Brightness", "detail": ""},
       {"id": "setting-sleep", "labelKey": "setting.sleep_between", "label": "Sleep between refreshes", "detail": ""},
       {"id": "setting-dark-mode", "labelKey": "setting.dark_mode", "label": "Dark mode", "detail": ""},
-      {"id": "setting-rotation", "labelKey": "setting.rotation", "label": "Rotation", "detail": ""},
       {"id": "setting-qt-backend", "labelKey": "setting.qt_backend", "label": "Qt backend", "detail": ""}
     ],
     "wifi-settings": [
