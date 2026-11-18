@@ -12,6 +12,7 @@
       {"id": "display-settings", "labelKey": "page.display", "label": "Display", "detail": ""},
       {"id": "wifi-settings", "labelKey": "page.network", "label": "Network", "detail": ""},
       {"id": "system-settings", "labelKey": "page.system", "label": "System", "detail": ""},
+      {"id": "refresh", "labelKey": "status.refresh", "label": "Refresh", "detail": ""},
       {"id": "exit", "labelKey": "menu.exit", "label": "Exit ktrmnl", "detail": ""}
     ],
     "content": [

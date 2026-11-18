@@ -325,7 +325,10 @@ FocusScope {
         else if (itemId === "display-settings") openMenu("display")
         else if (itemId === "wifi-settings") openMenu("wifi-settings")
         else if (itemId === "system-settings") openMenu("system")
-        else if (itemId === "status") {
+        else if (itemId === "refresh") {
+            closeMenu()
+            controller.refresh()
+        } else if (itemId === "status") {
             controller.refreshDeviceStatus()
             openMenu("status")
         } else if (itemId === "wifi-setup") openMenu("wifi")
