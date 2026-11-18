@@ -129,6 +129,10 @@ class KtrmnlController(QObject):
     def firstRun(self) -> bool:
         return self._first_run
 
+    @pyqtProperty(bool, notify=configStateChanged)
+    def trmnlConfigured(self) -> bool:
+        return bool(self.config.base_url and self.config.api_key)
+
     @pyqtProperty(str, notify=configStateChanged)
     def friendlyId(self) -> str:
         return self.config.friendly_id
@@ -363,7 +367,8 @@ class KtrmnlController(QObject):
             self.deviceChanged.emit()
         if "friendly_id" in values or "device_name" in values:
             self.configStateChanged.emit()
-        self.content.setExternalStatus("Configuration updated.")
+        if not content_keys:
+            self.content.setExternalStatus("Configuration updated.")
         self.statusChanged.emit()
         self._set_setting_error("")
         self.powerPolicyChanged.emit()

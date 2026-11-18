@@ -270,8 +270,10 @@ FocusScope {
     }
 
     function saveSetting(value) {
-        if (controller.applySetting(String(settingEditor.itemId), value))
-            closeEditor()
+        var wasConfigured = controller.trmnlConfigured
+        if (!controller.applySetting(String(settingEditor.itemId), value)) return
+        if (!wasConfigured && controller.trmnlConfigured) closeMenu()
+        else closeEditor()
     }
 
     function cycleChoice(itemId, direction) {
