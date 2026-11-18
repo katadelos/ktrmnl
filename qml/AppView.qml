@@ -692,6 +692,8 @@ FocusScope {
         theme: theme
         translator: root.translator
         title: root.titleForPage(root.menuPage)
+        headerDetail: root.menuPage === "root" && root.controller.batteryPercent >= 0
+                      ? root.controller.batteryPercent + "%" : ""
         hint: root.menuPage === "display" && root.controller.qtBackendAvailable
               ? root.translatedText("backend.next_launch",
                                     "Qt backend changes take effect when you reopen the app.")

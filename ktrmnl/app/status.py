@@ -158,7 +158,7 @@ class DeviceStatus(QObject):
     @property
     def battery_percent(self) -> int:
         percent = self._battery_percent()
-        return percent if percent is not None else 0
+        return percent if percent is not None else -1
 
     @property
     def warning_active(self) -> bool:

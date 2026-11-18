@@ -4,6 +4,7 @@ Item {
     id: root
     property var theme
     property string title: ""
+    property alias detail: detailLabel.text
     property bool backVisible: false
     readonly property bool showBack: backVisible && theme.touchAvailable
     readonly property int backSlotWidth: Math.round(28 * theme.scale)
@@ -13,9 +14,11 @@ Item {
     height: theme.headerHeight + theme.headerTopInset
 
     Text {
+        id: titleLabel
         anchors.left: parent.left
         anchors.leftMargin: root.showBack ? root.backSlotWidth + root.backTitleGap : 0
-        anchors.right: parent.right
+        anchors.right: detailLabel.left
+        anchors.rightMargin: detailLabel.text.length ? root.theme.compactMargin : 0
         anchors.top: parent.top
         anchors.bottom: parent.bottom
         anchors.topMargin: root.theme.headerTopInset
@@ -26,6 +29,15 @@ Item {
         font.bold: true
         elide: Text.ElideRight
         verticalAlignment: Text.AlignVCenter
+    }
+
+    Text {
+        id: detailLabel
+        anchors.right: parent.right
+        anchors.baseline: titleLabel.baseline
+        color: root.theme.ink
+        font.family: root.theme.displayFont
+        font.pixelSize: root.theme.detailSize
     }
 
     Rectangle {

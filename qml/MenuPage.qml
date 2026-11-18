@@ -6,6 +6,7 @@ Rectangle {
     property var theme
     property var translator
     property string title: "Menu"
+    property alias headerDetail: header.detail
     property string hint: ""
     property var items: []
     property int selectedIndex: 0
