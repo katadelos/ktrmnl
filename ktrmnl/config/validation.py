@@ -144,6 +144,14 @@ def validate_value(key: str, value: Any) -> Any:
         return profiles
     if key == "content_source":
         return validate_mode(value)
+    if key == "full_refresh_interval":
+        try:
+            interval = int(str(value))
+        except ValueError as error:
+            raise ValueError("Full refresh interval must be a whole number") from error
+        if not 0 <= interval <= 2147483647:
+            raise ValueError("Full refresh interval must be between 0 and 2147483647")
+        return interval
     if key == "rotation":
         try:
             rotation = int(value) % 360

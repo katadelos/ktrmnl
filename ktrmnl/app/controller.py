@@ -76,6 +76,8 @@ class KtrmnlController(QObject):
         self._first_run = bool(initial_first_run)
         self._setting_error = ""
         self._power_status = "Sleep is available on the device."
+        self._screen_changes = 0
+        self.content.imageRevisionChanged.connect(self._content_image_changed)
         self.content.statusChanged.connect(self.statusChanged)
         self.content.modeChanged.connect(self.statusChanged)
         self.content.modeChanged.connect(self._refresh_menu)
@@ -346,6 +348,7 @@ class KtrmnlController(QObject):
             {
                 "rotation",
                 "dark_mode",
+                "full_refresh_interval",
                 "frontlight_enabled",
                 "frontlight_brightness",
                 "qt_backend",
@@ -354,6 +357,8 @@ class KtrmnlController(QObject):
                 "device_name",
             }
         )
+        if "full_refresh_interval" in values:
+            self._screen_changes = 0
         if content_keys and reload_content:
             self.content.reloadConfig()
         if self.config.rotation != old_rotation:
@@ -430,6 +435,7 @@ class KtrmnlController(QObject):
 
         try:
             self.config.clear()
+            self._screen_changes = 0
         except OSError as error:
             self._set_setting_error("The configuration could not be cleared.")
             self.content.setExternalStatus(
@@ -479,6 +485,19 @@ class KtrmnlController(QObject):
         except Exception as error:
             self.content.setExternalStatus("Rotation error: " + str(error), "error")
             return False
+
+    def _content_image_changed(self) -> None:
+        interval = self.config.get("full_refresh_interval")
+        if (
+            not interval
+            or self._ui_state is not UiState.CONTENT
+            or not self.content.hasContent
+        ):
+            return
+        self._screen_changes += 1
+        if self._screen_changes >= interval:
+            self._screen_changes = 0
+            self.requestFullRefresh()
 
     @pyqtSlot()
     def requestFullRefresh(self) -> None:

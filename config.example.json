@@ -11,6 +11,7 @@
   "local_image_shuffle": true,
   "retry_interval": 60,
   "rotation": 0,
+  "full_refresh_interval": 0,
   "dark_mode": false,
   "frontlight_enabled": false,
   "frontlight_brightness": 50,

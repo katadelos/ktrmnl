@@ -60,6 +60,7 @@ DEFAULTS: Dict[str, Any] = {
     "local_image_shuffle": True,
     "retry_interval": 60,
     "rotation": 0,
+    "full_refresh_interval": 0,
     "dark_mode": False,
     "frontlight_enabled": False,
     "frontlight_brightness": 50,

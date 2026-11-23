@@ -25,6 +25,7 @@
     ],
     "display": [
       {"id": "setting-rotation", "labelKey": "setting.rotation", "label": "Rotation", "detail": ""},
+      {"id": "setting-full-refresh-interval", "labelKey": "setting.full_refresh_interval", "label": "Full refresh interval", "detail": ""},
       {"id": "setting-frontlight", "labelKey": "setting.frontlight", "label": "Frontlight", "detail": ""},
       {"id": "setting-frontlight-brightness", "labelKey": "setting.frontlight_brightness", "label": "Brightness", "detail": ""},
       {"id": "setting-sleep", "labelKey": "setting.sleep_between", "label": "Sleep between refreshes", "detail": ""},

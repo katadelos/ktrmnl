@@ -65,6 +65,13 @@ SETTING_SPECS: Dict[str, Dict[str, object]] = {
             {"value": value, "label": f"{value}°"} for value in (0, 90, 180, 270)
         ],
     },
+    "setting-full-refresh-interval": {
+        "key": "full_refresh_interval",
+        "kind": "number",
+        "minimum": 0,
+        "maximum": 2147483647,
+        "unit": "",
+    },
     "setting-dark-mode": {"key": "dark_mode", "kind": "toggle"},
     "setting-frontlight": {"key": "frontlight_enabled", "kind": "toggle"},
     "setting-frontlight-brightness": {
@@ -260,6 +267,12 @@ class SettingsMenu:
             return self._t("validation.whole_number", "Enter a whole number.")
         if int(spec["minimum"]) <= number <= int(spec["maximum"]):
             return ""
+        if not spec["unit"]:
+            return self._t(
+                "editor.allowed_range",
+                "Allowed range: {minimum}–{maximum}.",
+                self._number_bounds(spec),
+            )
         if spec["unit"] == "%":
             return self._t(
                 "validation.percent_range",
@@ -298,6 +311,8 @@ class SettingsMenu:
                 if bool(value)
                 else self._t("detail.off", "Off")
             )
+        if key == "full_refresh_interval" and value == 0:
+            return self._t("detail.never", "Never")
         if kind == "number":
             value = self._number_text(value)
         unit = str(spec.get("unit") or "")
@@ -396,11 +411,16 @@ class SettingsMenu:
             definition["unitText"] = (
                 self._t("editor.unit_seconds", "seconds")
                 if spec["unit"] == "seconds"
-                else "%"
+                else spec["unit"]
             )
             definition["rangeHint"] = self._t(
                 "editor.allowed_range",
                 "Allowed range: {minimum}–{maximum}.",
                 self._number_bounds(spec),
+            )
+        if key == "full_refresh_interval":
+            definition["rangeHint"] = self._t(
+                "editor.full_refresh_hint",
+                "Screen changes between full refreshes (0 = never).",
             )
         return definition
